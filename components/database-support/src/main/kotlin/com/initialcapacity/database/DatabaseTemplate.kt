@@ -7,22 +7,14 @@ import javax.sql.DataSource
 class DatabaseTemplate(private val dataSource: DataSource) {
     fun <T> execute(sql: String, parameters: (PreparedStatement) -> Unit, results: (ResultSet) -> T): T? {
         return with(sql, parameters) { statement ->
-            if (statement.execute() && statement.resultSet.next()) {
-                results(statement.resultSet)
-            } else {
-                null
-            }
+            if (statement.execute() && statement.resultSet.next()) results(statement.resultSet) else null
         }
     }
 
     fun <T> query(sql: String, parameters: (PreparedStatement) -> Unit, results: (ResultSet) -> T): T? {
         return with(sql, parameters) { statement ->
             statement.executeQuery().use {
-                if (!it.next()) {
-                    null
-                } else {
-                    results(it)
-                }
+                if (it.next()) results(it) else null
             }
         }
     }
@@ -39,11 +31,7 @@ class DatabaseTemplate(private val dataSource: DataSource) {
         }
     }
 
-    private fun <T> with(
-        sql: String,
-        parameters: (PreparedStatement) -> Unit,
-        function: (PreparedStatement) -> T
-    ): T {
+    private fun <T> with(sql: String, parameters: (PreparedStatement) -> Unit, function: (PreparedStatement) -> T): T {
         dataSource.connection.use { connection ->
             connection.prepareStatement(sql).use { statement ->
                 parameters(statement)

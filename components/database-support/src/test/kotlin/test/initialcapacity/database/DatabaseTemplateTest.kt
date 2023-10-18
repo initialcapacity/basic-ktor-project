@@ -5,6 +5,7 @@ import com.initialcapacity.database.configureDatabases
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class DatabaseTemplateTest {
     val source = configureDatabases("jdbc:postgresql://localhost/example_test?user=initialdev&password=initialdev")
@@ -32,6 +33,12 @@ class DatabaseTemplateTest {
             { it.getString(1) }
         )
         assertEquals("phil", found)
+
+        val missing = template.query("""select name from example where name = ?""",
+            { it.setString(1, "jim") },
+            { it.getString(1) }
+        )
+        assertNull(missing)
     }
 
     @Test
@@ -42,5 +49,11 @@ class DatabaseTemplateTest {
         )
         assertEquals(2, found.size)
         assertEquals("phil", found.first())
+
+        val empty = template.queryList("""select name from example where name = ?""",
+            { it.setString(1, "ted") },
+            { it.getString(1) }
+        )
+        assertEquals(emptyList(), empty)
     }
 }
