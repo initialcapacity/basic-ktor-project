@@ -3,6 +3,22 @@ on: push
 jobs:
   run-tests:
     runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgresql
+          POSTGRES_PASSWORD: postgresql
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
@@ -10,7 +26,12 @@ jobs:
           distribution: 'temurin'
           java-version: 20.0.2
           cache: 'gradle'
-      - name: grant execute permission for gradlew
-        run: chmod +x gradlew
+      - uses: ./.github/actions/database-support
+      - name: migrate test database
+        run: |
+          psql --host localhost --username postgresql < databases/create_databases.sql
+          /usr/local/bin/flyway -user=initialdev -password=initialdev -url="jdbc:postgresql://localhost:5432/example_test" -locations=filesystem:databases/example migrate
+        env:
+          PGPASSWORD: postgresql
       - name: build
-        run: ./gradlew assemble
+        run: ./gradlew build
