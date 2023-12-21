@@ -1,26 +1,17 @@
 package com.initialcapacity.webapp
 
-import io.ktor.server.application.*
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-
-fun Application.basic(databaseUrl: String) {
-    routing {
-        get("/") {
-            call.respondText("hi!")
-        }
-    }
-}
+import com.initialcapacity.database.configureDatabases
+import com.initialcapacity.web.basic
+import com.initialcapacity.web.requiredEnvironmentVariable
+import io.ktor.server.application.Application
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
 
 fun Application.module() {
-    val databaseUrl = requiredEnvironmentVariable("DATABASE_URL")
-    basic(databaseUrl)
-}
-
-fun requiredEnvironmentVariable(value: String): String {
-    return System.getenv().get(value) ?: throw RuntimeException("missing configuration: $value")
+    basic(
+        configureDatabases(requiredEnvironmentVariable("DATABASE_URL")),
+        requiredEnvironmentVariable("STRIPE_API_KEY")
+    )
 }
 
 fun main() {

@@ -8,8 +8,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class DatabaseTemplateTest {
-    val source = configureDatabases("jdbc:postgresql://localhost/example_test?user=initialdev&password=initialdev")
-    val template = DatabaseTemplate(source)
+    private val source = configureDatabases("jdbc:postgresql://localhost/example_test?user=initialdev&password=initialdev")
+    private val template = DatabaseTemplate(source)
 
     @Before
     fun before() {

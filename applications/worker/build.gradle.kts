@@ -7,6 +7,8 @@ plugins {
 group = "com.initialcapacity.worker"
 version = "0.0.1"
 
+val kotlinVersion: String by project
+
 application {
     mainClass.set("com.initialcapacity.worker.ApplicationKt")
 }
@@ -17,6 +19,8 @@ repositories {
 
 dependencies {
     implementation(project(":components:database-support"))
+
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.20")
+
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 }

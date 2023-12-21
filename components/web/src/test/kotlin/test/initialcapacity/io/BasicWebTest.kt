@@ -1,4 +1,4 @@
-package test.initialcapacity.webapp
+package test.initialcapacity.io
 
 import com.initialcapacity.database.configureDatabases
 import com.initialcapacity.web.basic
@@ -12,8 +12,7 @@ import org.junit.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
-class ApplicationTest {
-
+class BasicWebTest {
     @Before
     fun setUp() {
         Stripe.apiKey = "sk_test_xxxxxxxxxxxxxxxxxxxxxxxx"
@@ -22,10 +21,11 @@ class ApplicationTest {
 
     @Test
     fun test() = testApplication {
+        val dataSource = configureDatabases("jdbc:postgresql://localhost/example_test?user=initialdev&password=initialdev")
         application {
             basic(
-                configureDatabases("jdbc:postgresql://localhost/example_test?user=initialdev&password=initialdev"),
-                "sk_test_xxxxxxxxxxxxxxxxxxxxxxxx"
+                dataSource,
+                "sk_test_xxxxxxxxxxxxxxxxxxxxxxxx",
             )
         }
         val response = client.get("/")

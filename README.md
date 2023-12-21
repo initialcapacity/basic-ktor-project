@@ -2,6 +2,14 @@
 
 ## Getting started
 
+Install dependencies.
+
+- [Java](https://adoptium.net/temurin/releases/?version=21)
+- [Flyway](https://documentation.red-gate.com/fd)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- [Postgres](https://www.postgresql.org/)
+- [Stripe mock](https://github.com/stripe/stripe-mock)
+
 1. Set up the database.
 
    ```bash

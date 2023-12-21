@@ -1,4 +1,7 @@
+val postgresVersion: String by project
+val hikariVersion: String by project
+
 dependencies {
-    implementation("org.postgresql:postgresql:42.5.4")
-    implementation ("com.zaxxer:HikariCP:5.0.1")
+    implementation("org.postgresql:postgresql:$postgresVersion")
+    implementation ("com.zaxxer:HikariCP:$hikariVersion")
 }

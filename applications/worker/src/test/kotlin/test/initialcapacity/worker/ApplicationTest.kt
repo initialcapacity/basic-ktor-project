@@ -8,6 +8,6 @@ class ApplicationTest {
 
     @Test
     fun starts() {
-        assertTrue(Application("jdbc:postgresql://localhost/example_test?user=initialdev&password=initialdev").start())
+        assertTrue(Application().start())
     }
 }
