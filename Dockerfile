@@ -1,4 +1,4 @@
-FROM eclipse-temurin:20-alpine as jre-build
+FROM eclipse-temurin:21-alpine as jre-build
 
 RUN $JAVA_HOME/bin/jlink \
  --add-modules java.base,java.desktop,java.sql,java.naming,java.management,java.net.http,jdk.jdwp.agent,jdk.crypto.ec \
