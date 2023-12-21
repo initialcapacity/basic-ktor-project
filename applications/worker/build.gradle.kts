@@ -18,5 +18,5 @@ repositories {
 dependencies {
     implementation(project(":components:database-support"))
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.10")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.20")
 }

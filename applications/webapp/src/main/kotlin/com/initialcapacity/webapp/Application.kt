@@ -6,7 +6,7 @@ import io.ktor.server.netty.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-fun Application.basic() {
+fun Application.basic(databaseUrl: String) {
     routing {
         get("/") {
             call.respondText("hi!")
@@ -15,7 +15,12 @@ fun Application.basic() {
 }
 
 fun Application.module() {
-    basic()
+    val databaseUrl = requiredEnvironmentVariable("DATABASE_URL")
+    basic(databaseUrl)
+}
+
+fun requiredEnvironmentVariable(value: String): String {
+    return System.getenv().get(value) ?: throw RuntimeException("missing configuration: $value")
 }
 
 fun main() {
