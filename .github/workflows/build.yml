@@ -33,6 +33,7 @@ jobs:
           /usr/local/bin/flyway -user=initialdev -password=initialdev -url="jdbc:postgresql://localhost:5432/example_test" -locations=filesystem:databases/example migrate
         env:
           PGPASSWORD: postgresql
+      - uses: ./.github/actions/install-stripe-mock
       - name: "build"
         run: ./gradlew build
       - uses: actions/upload-artifact@v4
