@@ -86,6 +86,6 @@ jobs:
       - name: "deploy"
         run: |-
           echo gcloud run deploy basic-ktor-project-review \
-            --image us-central1-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/basic-ktor-project-revbiew/basic-ktor-project:${{ github.sha }} \
+            --image us-central1-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/basic-ktor-project-review/basic-ktor-project:${{ github.sha }} \
             --region us-central1 \
             --platform managed
