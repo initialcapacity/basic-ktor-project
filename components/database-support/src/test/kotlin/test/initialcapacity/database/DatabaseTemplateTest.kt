@@ -1,14 +1,14 @@
 package test.initialcapacity.database
 
 import com.initialcapacity.database.DatabaseTemplate
-import com.initialcapacity.database.configureDatabases
+import com.initialcapacity.database.dataSource
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class DatabaseTemplateTest {
-    private val source = configureDatabases("jdbc:postgresql://localhost/example_test?user=initialdev&password=initialdev")
+    private val source = dataSource("jdbc:postgresql://localhost/example_test?user=initialdev&password=initialdev")
     private val template = DatabaseTemplate(source)
 
     @Before

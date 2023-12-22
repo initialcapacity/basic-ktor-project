@@ -1,7 +1,7 @@
 package test.initialcapacity.stripe
 
 import com.initialcapacity.database.DatabaseTemplate
-import com.initialcapacity.database.configureDatabases
+import com.initialcapacity.database.dataSource
 import com.initialcapacity.stripe.StripeGateway
 import com.initialcapacity.subscriptions.SubscriptionsGateway
 import com.initialcapacity.subscriptions.SubscriptionsService
@@ -11,7 +11,7 @@ import org.junit.Test
 import kotlin.test.assertEquals
 
 class SubscriptionsServiceTest {
-    private val source = configureDatabases("jdbc:postgresql://localhost/example_test?user=initialdev&password=initialdev")
+    private val source = dataSource("jdbc:postgresql://localhost/example_test?user=initialdev&password=initialdev")
     private val template = DatabaseTemplate(source)
 
     @Before

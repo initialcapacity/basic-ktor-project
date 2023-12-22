@@ -1,11 +1,10 @@
 rootProject.name = "basic-ktor-project"
 
 include(
-    "applications:webapp",
-    "applications:worker",
+    "applications:report-app",
+    "applications:report-worker",
 
     "components:database-support",
     "components:stripe-support",
     "components:subscriptions",
-    "components:web",
 )

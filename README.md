@@ -27,17 +27,17 @@ Install dependencies.
 1. Run the application locally.
 
    ```bash
-   java -jar applications/webapp/build/libs/webapp.jar
+   java -jar applications/report-app/build/libs/report-app.jar
    ```
 
 ## Run with Docker
 
 1. Build with Docker.
    ```bash
-    docker build -t webapp . --platform linux/amd64
+    docker build -t report-app . --platform linux/amd64
     ```
 
 1. Run with Docker.
    ```bash
-   docker run -p 8080:8080 --env-file .env.docker webapp
+   docker run -p 8080:8080 --env-file .env.docker report-app
    ```
