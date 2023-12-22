@@ -14,5 +14,5 @@ ENV PATH "${JAVA_HOME}/bin:${PATH}"
 COPY --from=jre-build /javaruntime $JAVA_HOME
 
 RUN mkdir /opt/applications
-COPY applications/webapp/build/libs/webapp-all.jar /opt/applications/
-CMD [ "java", "-jar", "/opt/applications/webapp-all.jar" ]
+COPY applications/webapp/build/libs/webapp.jar /opt/applications/
+CMD [ "java", "-jar", "/opt/applications/webapp.jar" ]
