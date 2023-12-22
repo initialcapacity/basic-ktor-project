@@ -1,3 +1,4 @@
+val postgresVersion: String by project
 val stripeVersion: String by project
 
 dependencies {
@@ -5,4 +6,6 @@ dependencies {
     implementation(project(":components:stripe-support"))
 
     implementation("com.stripe:stripe-java:$stripeVersion")
+
+    testImplementation("org.postgresql:postgresql:$postgresVersion")
 }

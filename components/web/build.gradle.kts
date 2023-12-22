@@ -2,7 +2,6 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 
-val kotlinVersion: String by project
 val ktorVersion: String by project
 val stripeVersion: String by project
 val postgresVersion: String by project
@@ -23,5 +22,4 @@ dependencies {
     implementation("com.zaxxer:HikariCP:$hikariVersion")
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 }

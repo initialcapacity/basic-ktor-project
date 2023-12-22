@@ -27,7 +27,7 @@ Install dependencies.
 1. Run the application locally.
 
    ```bash
-   java -jar applications/webapp/build/libs/webapp-all.jar
+   java -jar applications/webapp/build/libs/webapp.jar
    ```
 
 ## Run with Docker

@@ -1,20 +1,12 @@
 plugins {
-    id("application")
     id("org.jetbrains.kotlin.plugin.serialization")
-    id("com.github.johnrengelman.shadow")
 }
 
 group = "com.initialcapacity.webapp"
 
-val kotlinVersion: String by project
 val ktorVersion: String by project
 val stripeVersion: String by project
 val postgresVersion: String by project
-val hikariVersion: String by project
-
-application {
-    mainClass.set("com.initialcapacity.webapp.ApplicationKt")
-}
 
 repositories {
     mavenCentral()
@@ -32,8 +24,22 @@ dependencies {
 
     implementation("com.stripe:stripe-java:$stripeVersion")
     implementation("org.postgresql:postgresql:$postgresVersion")
-    implementation("com.zaxxer:HikariCP:$hikariVersion")
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+}
+
+task<JavaExec>("run") {
+    classpath = files(tasks.jar)
+}
+
+tasks {
+    jar {
+        manifest { attributes("Main-Class" to "com.initialcapacity.webapp.ApplicationKt") }
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        from({
+            configurations.runtimeClasspath.get()
+                .filter { it.name.endsWith("jar") }
+                .map(::zipTree)
+        })
+    }
 }
