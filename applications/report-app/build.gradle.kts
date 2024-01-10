@@ -8,10 +8,6 @@ val ktorVersion: String by project
 val stripeVersion: String by project
 val postgresVersion: String by project
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation(project(":components:database-support"))
     implementation(project(":components:stripe-support"))
