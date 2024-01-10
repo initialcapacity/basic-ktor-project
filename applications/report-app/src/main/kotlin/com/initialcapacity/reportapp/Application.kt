@@ -11,7 +11,11 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.routing.*
 
-fun Application.module(databaseUrl: String, stripeApiKey: String) {
+fun Application.module(databaseUrl: String, stripeApiKey: String, useStripeMock: Boolean) {
+    if (useStripeMock) {
+        Stripe.overrideApiBase("http://localhost:12111")
+    }
+
     Stripe.apiKey = stripeApiKey
 
     val stripeSupport = StripeGateway()
@@ -28,7 +32,8 @@ fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = {
         module(
             databaseUrl = requiredEnvironmentVariable("DATABASE_URL"),
-            stripeApiKey = requiredEnvironmentVariable("STRIPE_API_KEY")
+            stripeApiKey = requiredEnvironmentVariable("STRIPE_API_KEY"),
+            useStripeMock = System.getenv("USE_STRIPE_MOCK") == "true"
         )
     }).start(wait = true)
 }
