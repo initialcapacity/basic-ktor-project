@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ApplicationKt" type="JetRunConfigurationType" nameIsGenerated="true">
+    <envs>
+      <env name="DATABASE_URL" value="jdbc:postgresql://localhost/example_test?user=initialdev&amp;password=initialdev" />
+      <env name="STRIPE_API_KEY" value="sk_test_xxxxxxxxxxxxxxxxxxxxxxxx" />
+      <env name="STRIPE_BASE_URL" value="http://localhost:12111" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.initialcapacity.reportapp.ApplicationKt" />
+    <module name="basic-ktor-project.applications.report-app.main" />
+    <shortenClasspath name="NONE" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

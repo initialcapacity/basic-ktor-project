@@ -6,17 +6,14 @@ import com.initialcapacity.stripe.StripeGateway
 import com.initialcapacity.subscriptions.SubscriptionsGateway
 import com.initialcapacity.subscriptions.SubscriptionsService
 import com.stripe.Stripe
-import io.ktor.server.application.*
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
-import io.ktor.server.routing.*
+import io.ktor.server.application.Application
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
+import io.ktor.server.routing.routing
 
-fun Application.module(databaseUrl: String, stripeApiKey: String, useStripeMock: Boolean) {
-    if (useStripeMock) {
-        Stripe.overrideApiBase("http://localhost:12111")
-    }
-
+fun Application.module(databaseUrl: String, stripeApiKey: String, stripeBaseURL: String) {
     Stripe.apiKey = stripeApiKey
+    Stripe.overrideApiBase(stripeBaseURL)
 
     val stripeSupport = StripeGateway()
     val template = DatabaseTemplate(dataSource(databaseUrl))
@@ -33,9 +30,13 @@ fun main() {
         module(
             databaseUrl = requiredEnvironmentVariable("DATABASE_URL"),
             stripeApiKey = requiredEnvironmentVariable("STRIPE_API_KEY"),
-            useStripeMock = System.getenv("USE_STRIPE_MOCK") == "true"
+            stripeBaseURL = optionalEnvironmentVariable("STRIPE_BASE_URL", "https://api.stripe.com")
         )
     }).start(wait = true)
+}
+
+fun optionalEnvironmentVariable(value: String, default: String): String {
+    return System.getenv()[value] ?: default
 }
 
 fun requiredEnvironmentVariable(value: String): String {
