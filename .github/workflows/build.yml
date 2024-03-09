@@ -43,7 +43,7 @@ jobs:
           retention-days: 1
 
   artifact-registry:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [ run-tests ]
     permissions:
       contents: "read"
