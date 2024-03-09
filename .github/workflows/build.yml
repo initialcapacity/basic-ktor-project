@@ -2,7 +2,7 @@ name: build
 on: push
 jobs:
   run-tests:
-    runs-on: self-hosted 
+    runs-on: ubuntu-latest
     permissions:
       contents: "read"
       id-token: "write"
