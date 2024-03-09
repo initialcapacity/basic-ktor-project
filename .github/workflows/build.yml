@@ -2,7 +2,7 @@ name: build
 on: push
 jobs:
   run-tests:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted 
     permissions:
       contents: "read"
       id-token: "write"
@@ -43,7 +43,7 @@ jobs:
           retention-days: 1
 
   artifact-registry:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [ run-tests ]
     permissions:
       contents: "read"
